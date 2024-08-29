@@ -39,7 +39,7 @@ const ProjectsPage = () => {
 
   return (
     <div className="projects-page">
-      <h1>My Projects</h1>
+      <h1>Report Incident</h1>
       <div className="form-and-map-container">
         <div className="form-container">
           <AddProjectForm onAddProject={handleAddProject} />
@@ -59,8 +59,8 @@ const ProjectsPage = () => {
             <li>
               <h2>{project.name}</h2>
               <p>{project.description}</p>
-              <p>Department: {project.department}</p>
-              <p>Completion Time: {project.completionTime}</p>
+              <p>Concerned Department: {project.department}</p>
+              <p>Incident Time: {project.completionTime}</p>
               <p>Place: {project.place}</p>
             </li>
           </React.Fragment>

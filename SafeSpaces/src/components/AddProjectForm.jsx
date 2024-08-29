@@ -79,7 +79,7 @@ const AddProjectForm = ({ onAddProject }) => {
   return (
     <form onSubmit={handleSubmit} className="add-project-form">
       <div>
-        <label>Project Name:</label>
+        <label>Type of Incident:</label>
         <input
           type="text"
           value={name}
@@ -96,7 +96,7 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
-        <label>Department:</label>
+        <label>Incident:</label>
         <input
           type="text"
           value={department}
@@ -105,7 +105,7 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
-        <label>Completion Time:</label>
+        <label>Incident Time:</label>
         <input
           type="text"
           value={completionTime}
