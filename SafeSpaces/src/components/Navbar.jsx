@@ -40,7 +40,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="header">
+    <header className="header" style={{ zIndex: 10 }}>
       <nav className="nav container">
         <NavLink to="/" className="nav__logo">
           Navigation Bar

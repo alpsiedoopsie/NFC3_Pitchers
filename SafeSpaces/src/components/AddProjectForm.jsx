@@ -1,36 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import CameraCapture from "./CameraCapture";
 
 const AddProjectForm = ({ onAddProject }) => {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
-  const [department, setDepartment] = useState('');
-  const [completionTime, setCompletionTime] = useState('');
-  const [place, setPlace] = useState('');
-  const [currentLocation, setCurrentLocation] = useState({ lat: null, lon: null });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [department, setDepartment] = useState("");
+  const [completionTime, setCompletionTime] = useState("");
+  const [place, setPlace] = useState("");
+  const [currentLocation, setCurrentLocation] = useState({
+    lat: null,
+    lon: null,
+  });
+  const [capturedImage, setCapturedImage] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newProject = {
-      id: Date.now(),
       name,
       description,
       department,
       completionTime,
       place,
-      lat: currentLocation.lat,
-      lon: currentLocation.lon,
+      location: {
+        type: "Point",
+        coordinates: [currentLocation.lon, currentLocation.lat],
+      },
+      media: capturedImage ? [capturedImage] : [],
     };
 
-    onAddProject(newProject);
+    try {
+      const response = await fetch("/api/reports", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProject),
+      });
 
-    // Clear the form
-    setName('');
-    setDescription('');
-    setDepartment('');
-    setCompletionTime('');
-    setPlace('');
-    setCurrentLocation({ lat: null, lon: null });
+      if (response.ok) {
+        const createdProject = await response.json();
+        onAddProject(createdProject);
+        // Clear the form
+        setName("");
+        setDescription("");
+        setDepartment("");
+        setCompletionTime("");
+        setPlace("");
+        setCurrentLocation({ lat: null, lon: null });
+        setCapturedImage(null);
+      } else {
+        console.error("Failed to create project");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const handleUseCurrentLocation = () => {
@@ -41,19 +65,19 @@ const AddProjectForm = ({ onAddProject }) => {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           });
-          setPlace('Current Location'); // Optional: Set a placeholder for the current location
+          setPlace("Current Location"); // Optional: Set a placeholder for the current location
         },
         (error) => {
-          console.error('Error fetching current location:', error);
+          console.error("Error fetching current location:", error);
         }
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      console.error("Geolocation is not supported by this browser.");
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="add-project-form">
       <div>
         <label>Project Name:</label>
         <input
@@ -99,6 +123,10 @@ const AddProjectForm = ({ onAddProject }) => {
         <button type="button" onClick={handleUseCurrentLocation}>
           Use Current Location
         </button>
+      </div>
+      <div>
+        <label>Capture Image:</label>
+        <CameraCapture onCapture={setCapturedImage} />
       </div>
       <button type="submit">Add Project</button>
     </form>

@@ -14,6 +14,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  z-index: 10;
 }
 
 .nav__logo {
@@ -51,7 +52,7 @@ body {
 }
 
 .nav__cta {
-  background-color: #04AA6D;
+  background-color: #04aa6d;
   color: white;
   border-radius: 4px;
 }
@@ -85,6 +86,7 @@ body {
     background-color: #333;
     width: 100%;
     padding: 20px;
+    z-index: 100;
   }
 
   .nav__menu.show-menu {

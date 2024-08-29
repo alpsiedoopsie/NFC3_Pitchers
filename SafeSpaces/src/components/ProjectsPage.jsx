@@ -44,7 +44,7 @@ const ProjectsPage = () => {
         <div className="form-container">
           <AddProjectForm onAddProject={handleAddProject} />
         </div>
-        <div className="map-container">
+        <div className="map-container" style={{ zIndex: 0 }}>
           <MapWithMarkers
             place={newPlace}
             project={projectName}

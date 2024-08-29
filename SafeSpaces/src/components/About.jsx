@@ -1,7 +1,8 @@
 import React from "react";
+import CameraCapture from "./CameraCapture";
 
 function About() {
-  return <h2>About</h2>;
+  return <CameraCapture />;
 }
 
 export default About;

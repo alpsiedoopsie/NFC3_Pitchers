@@ -23,7 +23,7 @@ const MapWithMarkers = ({ place, project, lat, lon }) => {
     const savedMarkers = localStorage.getItem("markers");
     return savedMarkers ? JSON.parse(savedMarkers) : [];
   });
-  const apiKey = '6be8fe7e245a435999e51f7fc43e3a58';
+  const apiKey = "6be8fe7e245a435999e51f7fc43e3a58";
 
   useEffect(() => {
     const addMarker = async () => {
@@ -79,7 +79,8 @@ const MapWithMarkers = ({ place, project, lat, lon }) => {
       {markers.map((marker, index) => (
         <Marker key={index} position={[marker.lat, marker.lon]}>
           <Popup>
-            <strong>{marker.project}</strong><br />
+            <strong>{marker.project}</strong>
+            <br />
             {marker.address}
           </Popup>
         </Marker>
