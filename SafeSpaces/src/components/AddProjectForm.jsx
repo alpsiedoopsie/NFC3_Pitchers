@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CameraCapture from "./CameraCapture";
 
 const AddProjectForm = ({ onAddProject }) => {
   const [name, setName] = useState("");
@@ -124,10 +123,7 @@ const AddProjectForm = ({ onAddProject }) => {
           Use Current Location
         </button>
       </div>
-      <div>
-        <label>Capture Image:</label>
-        <CameraCapture onCapture={setCapturedImage} />
-      </div>
+      
       <button type="submit">Add Project</button>
     </form>
   );
