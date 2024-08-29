@@ -10,10 +10,9 @@ app.use(cors());
 
 // Import and use routes
 const authRoutes = require("./routes/auth");
-const reportRoutes = require("./routes/report"); // Corrected the path to reports.js
 
 app.use("/api/auth", authRoutes); // Make sure this path is correct
-app.use("/api/reports", reportRoutes); // Use the reports route
+
 
 // Connect to MongoDB
 mongoose
