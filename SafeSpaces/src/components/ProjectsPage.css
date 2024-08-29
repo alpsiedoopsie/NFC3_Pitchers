@@ -82,10 +82,18 @@ button:hover {
 .form-and-map-container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .map-container,
 .form-container {
   flex: 1;
   margin: 10px;
+  min-width: 300px; /* Ensure a minimum width for smaller screens */
+}
+
+@media screen and (max-width: 600px) {
+  .form-and-map-container {
+    flex-direction: column;
+  }
 }

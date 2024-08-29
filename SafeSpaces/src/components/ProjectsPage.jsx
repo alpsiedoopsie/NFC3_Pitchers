@@ -31,7 +31,12 @@ const ProjectsPage = () => {
           <AddProjectForm onAddProject={handleAddProject} />
         </div>
         <div className="map-container">
-          <MapWithMarkers place={newPlace} project={projectName} lat={newLat} lon={newLon} />
+          <MapWithMarkers
+            place={newPlace}
+            project={projectName}
+            lat={newLat}
+            lon={newLon}
+          />
         </div>
       </div>
       <ul>
