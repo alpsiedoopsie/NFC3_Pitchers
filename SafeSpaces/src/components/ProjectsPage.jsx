@@ -57,10 +57,9 @@ const ProjectsPage = () => {
         {projects.map((project) => (
           <React.Fragment key={project.id}>
             <li>
-              <h2>{project.name}</h2>
-              <p>{project.description}</p>
-              <p>Concerned Department: {project.department}</p>
-              <p>Incident Time: {project.completionTime}</p>
+              
+              <h2>Type of Threat: {project.name}</h2>
+              <p>Description: {project.description}</p>
               <p>Place: {project.place}</p>
             </li>
           </React.Fragment>
