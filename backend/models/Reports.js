@@ -1,55 +1,22 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const reportSchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  location: {
+const ReportSchema = new mongoose.Schema({
+  location: { type: String, required: true },
+  coordinates: {
     type: {
       type: String,
-      enum: ["Point"],
-      required: true,
+      enum: ['Point'],
+      required: true
     },
     coordinates: {
-      type: [Number], // [longitude, latitude]
-      required: true,
-    },
+      type: [Number],
+      required: true
+    }
   },
-  typeOfCrime: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  media: [
-    {
-      type: String,
-    },
-  ],
-  status: {
-    type: String,
-    enum: ["submitted", "in_progress", "resolved"],
-    default: "submitted",
-  },
-  assignedTo: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    default: null,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
+  typeOfCrime: { type: String, required: true },
+  descriptionOfCrime: { type: String, required: true }
 });
 
-reportSchema.index({ location: "2dsphere" });
+ReportSchema.index({ coordinates: '2dsphere' });
 
-module.exports = mongoose.model("Report", reportSchema);
+module.exports = mongoose.model('Report', ReportSchema);

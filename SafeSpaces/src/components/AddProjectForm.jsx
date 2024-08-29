@@ -40,7 +40,7 @@ const AddProjectForm = ({ onAddProject }) => {
       if (response.ok) {
         const createdProject = await response.json();
         onAddProject(createdProject);
-        // Clear the form
+      
         setName("");
         setDescription("");
         setDepartment("");
@@ -78,7 +78,7 @@ const AddProjectForm = ({ onAddProject }) => {
   return (
     <form onSubmit={handleSubmit} className="add-project-form">
       <div>
-        <label>Type of Crime</label>
+        <label>Project Name:</label>
         <input
           type="text"
           value={name}
@@ -95,7 +95,7 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
-        <label>Department:</label>
+        <label>Incident:</label>
         <input
           type="text"
           value={department}
@@ -104,7 +104,7 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
-        <label>Completion Time:</label>
+        <label>Incident Time:</label>
         <input
           type="text"
           value={completionTime}
@@ -122,6 +122,10 @@ const AddProjectForm = ({ onAddProject }) => {
         <button type="button" onClick={handleUseCurrentLocation}>
           Use Current Location
         </button>
+      </div>
+      <div>
+        <label>Capture Image:</label>
+        <CameraCapture onCapture={setCapturedImage} />
       </div>
       <button type="submit">Add Project</button>
     </form>
