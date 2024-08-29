@@ -19,19 +19,22 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapWithMarkers = ({ place, project, lat, lon }) => {
-  const [markers, setMarkers] = useState([]);
-  const apiKey = '6be8fe7e245a435999e51f7fc43e3a58'; 
+  const [markers, setMarkers] = useState(() => {
+    const savedMarkers = localStorage.getItem("markers");
+    return savedMarkers ? JSON.parse(savedMarkers) : [];
+  });
+  const apiKey = '6be8fe7e245a435999e51f7fc43e3a58';
 
   useEffect(() => {
     const addMarker = async () => {
       if (lat && lon) {
-        // Use the provided latitude and longitude
-        setMarkers((prevMarkers) => [
-          ...prevMarkers,
-          { lat, lon, address: place, project: project },
-        ]);
+        const newMarker = { lat, lon, address: place, project };
+        setMarkers((prevMarkers) => {
+          const updatedMarkers = [...prevMarkers, newMarker];
+          localStorage.setItem("markers", JSON.stringify(updatedMarkers));
+          return updatedMarkers;
+        });
       } else if (place) {
-        // Geocode the place if latitude and longitude are not provided
         try {
           const response = await axios.get(
             `https://api.opencagedata.com/geocode/v1/json`,
@@ -45,10 +48,12 @@ const MapWithMarkers = ({ place, project, lat, lon }) => {
 
           if (response.data.results && response.data.results.length > 0) {
             const { lat, lng } = response.data.results[0].geometry;
-            setMarkers((prevMarkers) => [
-              ...prevMarkers,
-              { lat, lon: lng, address: place, project: project },
-            ]);
+            const newMarker = { lat, lon: lng, address: place, project };
+            setMarkers((prevMarkers) => {
+              const updatedMarkers = [...prevMarkers, newMarker];
+              localStorage.setItem("markers", JSON.stringify(updatedMarkers));
+              return updatedMarkers;
+            });
           } else {
             console.error("No location data found for the specified place.");
           }
