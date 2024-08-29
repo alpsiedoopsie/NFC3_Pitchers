@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CameraCapture from "./CameraCapture";
 
 const AddProjectForm = ({ onAddProject }) => {
   const [name, setName] = useState("");
@@ -17,20 +16,20 @@ const AddProjectForm = ({ onAddProject }) => {
     e.preventDefault();
 
     const newProject = {
-      name,
-      description,
-      department,
-      completionTime,
-      place,
+      userId: "someUserId", // Ensure this is dynamically set
       location: {
         type: "Point",
         coordinates: [currentLocation.lon, currentLocation.lat],
       },
+      typeOfCrime: name, // Assuming 'name' is the type of crime
+      description,
       media: capturedImage ? [capturedImage] : [],
+      status: "submitted",
+      assignedTo: null,
     };
 
     try {
-      const response = await fetch("/api/reports", {
+      const response = await fetch("/api/report/summit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -79,7 +78,7 @@ const AddProjectForm = ({ onAddProject }) => {
   return (
     <form onSubmit={handleSubmit} className="add-project-form">
       <div>
-        <label>Project Name:</label>
+        <label>Type of Crime</label>
         <input
           type="text"
           value={name}
@@ -123,10 +122,6 @@ const AddProjectForm = ({ onAddProject }) => {
         <button type="button" onClick={handleUseCurrentLocation}>
           Use Current Location
         </button>
-      </div>
-      <div>
-        <label>Capture Image:</label>
-        <CameraCapture onCapture={setCapturedImage} />
       </div>
       <button type="submit">Add Project</button>
     </form>

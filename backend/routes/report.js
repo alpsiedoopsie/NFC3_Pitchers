@@ -3,7 +3,7 @@ const router = express.Router();
 const Report = require("../models/Reports.js"); // Adjust the path as necessary
 
 // Endpoint to create a new report
-router.post("/", async (req, res) => {
+router.post("/summit", async (req, res) => {
   try {
     const report = new Report(req.body);
     await report.save();
