@@ -23,6 +23,20 @@ const ProjectsPage = () => {
     setNewLon(newProject.lon);
   };
 
+  useEffect(() => {
+    // Re-load markers from local storage
+    const savedMarkers = localStorage.getItem("markers");
+    if (savedMarkers) {
+      const markers = JSON.parse(savedMarkers);
+      if (markers.length > 0) {
+        setNewPlace(markers[0].address);
+        setProjectName(markers[0].project);
+        setNewLat(markers[0].lat);
+        setNewLon(markers[0].lon);
+      }
+    }
+  }, []);
+
   return (
     <div className="projects-page">
       <h1>My Projects</h1>
