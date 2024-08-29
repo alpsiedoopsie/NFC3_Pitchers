@@ -1,58 +1,36 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const AddProjectForm = ({ onAddProject }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [place, setPlace] = useState("");
-  const [currentLocation, setCurrentLocation] = useState({
-    lat: null,
-    lon: null,
-  });
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [department, setDepartment] = useState('');
+  const [completionTime, setCompletionTime] = useState('');
+  const [place, setPlace] = useState('');
+  const [currentLocation, setCurrentLocation] = useState({ lat: null, lon: null });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formattedData = {
-      "location": place,
-      "coordinates": {
-        "type": "Point",
-        "coordinates": [currentLocation.lon, currentLocation.lat], // Longitude, Latitude
-      },
-      "typeOfCrime": name,
-      "descriptionOfCrime": description,
+    const newProject = {
+      id: Date.now(),
+      name,
+      description,
+      department,
+      completionTime,
+      place,
+      lat: currentLocation.lat,
+      lon: currentLocation.lon,
     };
 
-    try {
-      const response = await fetch("http://localhost:3000/api/auth/submit", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formattedData),
-      });
+    onAddProject(newProject);
 
-      if (response.ok) {
-        const createdProject = await response.json();
-        onAddProject({
-          ...createdProject,
-          lat: currentLocation.lat,
-          lon: currentLocation.lon,
-          place,
-          name,
-          description,
-        });
-
-        // Clear form fields after successful submission
-        setName("");
-        setDescription("");
-        setPlace("");
-        setCurrentLocation({ lat: null, lon: null });
-      } else {
-        console.error("Failed to submit the report");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    // Clear the form
+    setName('');
+    setDescription('');
+    setDepartment('');
+    setCompletionTime('');
+    setPlace('');
+    setCurrentLocation({ lat: null, lon: null });
   };
 
   const handleUseCurrentLocation = () => {
@@ -63,23 +41,21 @@ const AddProjectForm = ({ onAddProject }) => {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           });
-          setPlace("Latitude: " + position.coords.latitude + 
-  "   Longitude: " + position.coords.longitude);
+          setPlace('Current Location'); // Optional: Set a placeholder for the current location
         },
         (error) => {
-          console.error("Error fetching current location:", error);
+          console.error('Error fetching current location:', error);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      console.error('Geolocation is not supported by this browser.');
     }
   };
 
-
   return (
-    <form onSubmit={handleSubmit} className="add-project-form">
+    <form onSubmit={handleSubmit}>
       <div>
-        <label>Type of Incident:</label>
+        <label>Project Name:</label>
         <input
           type="text"
           value={name}
@@ -96,6 +72,24 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
+        <label>Department:</label>
+        <input
+          type="text"
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Completion Time:</label>
+        <input
+          type="text"
+          value={completionTime}
+          onChange={(e) => setCompletionTime(e.target.value)}
+          required
+        />
+      </div>
+      <div>
         <label>Place:</label>
         <input
           type="text"
@@ -106,7 +100,7 @@ const AddProjectForm = ({ onAddProject }) => {
           Use Current Location
         </button>
       </div>
-      <button type="submit" onc>Submit Report</button>
+      <button type="submit">Add Project</button>
     </form>
   );
 };
