@@ -41,7 +41,7 @@ const AddProjectForm = ({ onAddProject }) => {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           });
-          setPlace('Current Location'); // Optional: Set a placeholder for the current location
+          setPlace('Current Location'); 
         },
         (error) => {
           console.error('Error fetching current location:', error);

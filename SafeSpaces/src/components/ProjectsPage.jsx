@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddProjectForm from "./AddProjectForm";
 import "./ProjectsPage.css";
-import MapWithMarkers from "./MapwithMarker";
+import MapWithMarkers from "./MapWithMarkers";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState(() => {
