@@ -40,7 +40,7 @@ const AddProjectForm = ({ onAddProject }) => {
       if (response.ok) {
         const createdProject = await response.json();
         onAddProject(createdProject);
-        // Clear the form
+      
         setName("");
         setDescription("");
         setDepartment("");
