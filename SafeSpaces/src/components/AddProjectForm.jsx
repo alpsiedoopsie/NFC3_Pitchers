@@ -7,30 +7,45 @@ const AddProjectForm = ({ onAddProject }) => {
   const [completionTime, setCompletionTime] = useState('');
   const [place, setPlace] = useState('');
   const [currentLocation, setCurrentLocation] = useState({ lat: null, lon: null });
+  const [picture, setPicture] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newProject = {
-      id: Date.now(),
-      name,
-      description,
-      department,
-      completionTime,
-      place,
-      lat: currentLocation.lat,
-      lon: currentLocation.lon,
+      location: place,
+      coordinates: {
+        type: "Point",
+        coordinates: [currentLocation.lon, currentLocation.lat], // Longitude, Latitude
+      },
+      typeOfCrime: "Theft", // Example value, adjust as needed
+      descriptionOfCrime: description,
+      picture: picture ? URL.createObjectURL(picture) : null, // Convert file to URL
     };
 
-    onAddProject(newProject);
+    try {
+      await fetch('http://localhost:3000/api/auth/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newProject),
+      });
 
-    // Clear the form
-    setName('');
-    setDescription('');
-    setDepartment('');
-    setCompletionTime('');
-    setPlace('');
-    setCurrentLocation({ lat: null, lon: null });
+      // Clear the form
+      setName('');
+      setDescription('');
+      setDepartment('');
+      setCompletionTime('');
+      setPlace('');
+      setCurrentLocation({ lat: null, lon: null });
+      setPicture(null);
+
+      // Optionally update state to reflect the new project
+      onAddProject(newProject);
+    } catch (error) {
+      console.error('Error submitting project:', error);
+    }
   };
 
   const handleUseCurrentLocation = () => {
@@ -99,6 +114,14 @@ const AddProjectForm = ({ onAddProject }) => {
         <button type="button" onClick={handleUseCurrentLocation}>
           Use Current Location
         </button>
+      </div>
+      <div>
+        <label>Upload Picture:</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setPicture(e.target.files[0])}
+        />
       </div>
       <button type="submit">Add Project</button>
     </form>

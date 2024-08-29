@@ -17,10 +17,10 @@ const ProjectsPage = () => {
     const updatedProjects = [...projects, newProject];
     setProjects(updatedProjects);
     localStorage.setItem("projects", JSON.stringify(updatedProjects));
-    setNewPlace(newProject.place);
-    setProjectName(newProject.name);
-    setNewLat(newProject.lat);
-    setNewLon(newProject.lon);
+    setNewPlace(newProject.location);
+    setProjectName(newProject.typeOfCrime); // Adjust if needed
+    setNewLat(newProject.coordinates.coordinates[1]); // Latitude
+    setNewLon(newProject.coordinates.coordinates[0]); // Longitude
   };
 
   return (
@@ -35,14 +35,13 @@ const ProjectsPage = () => {
         </div>
       </div>
       <ul>
-        {projects.map((project) => (
-          <React.Fragment key={project.id}>
+        {projects.map((project, index) => (
+          <React.Fragment key={index}>
             <li>
-              <h2>{project.name}</h2>
-              <p>{project.description}</p>
-              <p>Department: {project.department}</p>
-              <p>Completion Time: {project.completionTime}</p>
-              <p>Place: {project.place}</p>
+              <h2>{project.location}</h2>
+              <p>{project.descriptionOfCrime}</p>
+              <p>Type of Crime: {project.typeOfCrime}</p>
+              {project.picture && <img src={project.picture} alt="Project" style={{ width: '100px', height: '100px' }} />}
             </li>
           </React.Fragment>
         ))}
