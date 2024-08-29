@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import AddProjectForm from "./AddProjectForm";
 import "./ProjectsPage.css";
 import MapWithMarkers from "./MapWithMarkers";
+import ImageModal from "./ImageModal";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState(() => {
@@ -12,6 +13,8 @@ const ProjectsPage = () => {
   const [projectName, setProjectName] = useState("");
   const [newLat, setNewLat] = useState(null);
   const [newLon, setNewLon] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState("");
 
   const handleAddProject = (newProject) => {
     const updatedProjects = [...projects, newProject];
@@ -21,6 +24,16 @@ const ProjectsPage = () => {
     setProjectName(newProject.typeOfCrime); // Adjust if needed
     setNewLat(newProject.coordinates.coordinates[1]); // Latitude
     setNewLon(newProject.coordinates.coordinates[0]); // Longitude
+  };
+
+  const openModal = (imageUrl) => {
+    setModalImageUrl(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImageUrl("");
   };
 
   return (
@@ -41,11 +54,19 @@ const ProjectsPage = () => {
               <h2>{project.location}</h2>
               <p>{project.descriptionOfCrime}</p>
               <p>Type of Crime: {project.typeOfCrime}</p>
-              {project.picture && <img src={project.picture} alt="Project" style={{ width: '100px', height: '100px' }} />}
+              {project.picture && (
+                <img
+                  src={project.picture}
+                  alt="Project"
+                  style={{ width: '100px', height: '100px', cursor: 'pointer' }}
+                  onClick={() => openModal(project.picture)}
+                />
+              )}
             </li>
           </React.Fragment>
         ))}
       </ul>
+      <ImageModal isOpen={isModalOpen} onClose={closeModal} imageUrl={modalImageUrl} />
     </div>
   );
 };
