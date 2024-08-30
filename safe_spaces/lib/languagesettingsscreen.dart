@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'locale_provider.dart';
 
 class LanguageSettingsScreen extends StatefulWidget {
   @override
@@ -6,29 +8,33 @@ class LanguageSettingsScreen extends StatefulWidget {
 }
 
 class _LanguageSettingsScreenState extends State<LanguageSettingsScreen> {
-  String _selectedLanguage = 'English';
-
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<LocaleProvider>(context);
+    final locale = provider.locale ?? Locale('en');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Language Settings'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: DropdownButtonFormField<String>(
-          value: _selectedLanguage,
-          items: ['English', 'Spanish', 'French']
-              .map((language) => DropdownMenuItem(
-                    value: language,
-                    child: Text(language),
-                  ))
-              .toList(),
-          onChanged: (value) {
-            setState(() {
-              _selectedLanguage = value!;
-              // Handle language change
-            });
+        child: DropdownButtonFormField<Locale>(
+          value: locale,
+          items: [
+            Locale('en', ''), // English
+            Locale('hi', ''), // Hindi
+          ].map((locale) {
+            final language = locale.languageCode == 'en' ? 'English' : 'Hindi';
+            return DropdownMenuItem(
+              value: locale,
+              child: Text(language),
+            );
+          }).toList(),
+          onChanged: (Locale? locale) {
+            if (locale != null) {
+              provider.setLocale(locale);
+            }
           },
           decoration: InputDecoration(
             labelText: 'Select Language',

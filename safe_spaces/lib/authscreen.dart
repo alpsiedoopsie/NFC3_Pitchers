@@ -6,6 +6,8 @@ class AuthScreen extends StatelessWidget {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  AuthScreen({super.key});
+
   Future<void> _sendAuthData() async {
     final String username = _usernameController.text;
     final String password = _passwordController.text;

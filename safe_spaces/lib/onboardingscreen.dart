@@ -15,15 +15,15 @@ class OnboardingScreen extends StatelessWidget {
           ),
           _buildPage(
             context,
-            'Feature 1: Anonymously Report Crimes',
+            'Anonymously Report Crimes',
           ),
           _buildPage(
             context,
-            'Feature 2: Real-Time Updates and Notifications',
+            'Real-Time Updates',
           ),
           _buildPage(
             context,
-            'Feature 3: Community Safety Insights (Heatmaps, etc.)',
+            'Community Safety Insights (Heatmaps, etc.)',
           ),
           _buildLastPage(context),
         ],

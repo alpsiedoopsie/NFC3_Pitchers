@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'database_helper.dart';
 import './models/emergency_contact.dart';
+import 'l10n.dart';
 
 class EmergencyContactScreen extends StatefulWidget {
   @override
@@ -75,9 +76,11 @@ class _EmergencyContactScreenState extends State<EmergencyContactScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Emergency Contacts'),
+        title: Text(localizations.translate('emergencyContacts')),
       ),
       body: Column(
         children: [
@@ -87,17 +90,21 @@ class _EmergencyContactScreenState extends State<EmergencyContactScreen> {
               children: [
                 TextField(
                   controller: _nameController,
-                  decoration: InputDecoration(labelText: 'Name'),
+                  decoration: InputDecoration(
+                    labelText: localizations.translate('name'),
+                  ),
                 ),
                 TextField(
                   controller: _numberController,
-                  decoration: InputDecoration(labelText: 'Number'),
+                  decoration: InputDecoration(
+                    labelText: localizations.translate('number'),
+                  ),
                   keyboardType: TextInputType.phone,
                 ),
                 SizedBox(height: 10),
                 ElevatedButton(
                   onPressed: _addContact,
-                  child: Text('Add Contact'),
+                  child: Text(localizations.translate('addContact')),
                 ),
               ],
             ),
