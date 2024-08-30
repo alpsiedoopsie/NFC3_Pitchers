@@ -13,21 +13,19 @@ const AddProjectForm = ({ onAddProject }) => {
     e.preventDefault();
 
     const newProject = {
-      name,
-      description,
-      department,
-      completionTime,
-      place,
-      location: {
+      location: place,
+      coordinates: {
         type: "Point",
         coordinates: [currentLocation.lon, currentLocation.lat], // Longitude, Latitude
       },
-      media: capturedImage ? [capturedImage] : [],
+      typeOfCrime: "Theft", // Example value, adjust as needed
+      descriptionOfCrime: description,
+      picture: picture ? URL.createObjectURL(picture) : null, // Convert file to URL
     };
 
     try {
-      const response = await fetch("/api/reports", {
-        method: "POST",
+      await fetch('http://localhost:3000/api/auth/submit', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -117,7 +115,14 @@ const AddProjectForm = ({ onAddProject }) => {
           Use Current Location
         </button>
       </div>
-      
+      <div>
+        <label>Upload Picture:</label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={(e) => setPicture(e.target.files[0])}
+        />
+      </div>
       <button type="submit">Add Project</button>
     </form>
   );
