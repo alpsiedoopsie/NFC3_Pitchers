@@ -41,8 +41,10 @@ body {
 
 .projects-page li p {
   margin: 5px 0;
-  color: #666;
+  color: #333; /* Darker color */
+  font-weight: 400; /* Heavier weight */
 }
+
 
 form {
   margin-bottom: 20px;

@@ -42,7 +42,7 @@ const ProjectsPage = () => {
 
   return (
     <div className="projects-page">
-      <h1>My Projects</h1>
+      <h1>Report an Incident</h1>
       <div className="form-and-map-container">
         <div className="form-container">
           <AddProjectForm onAddProject={handleAddProject} />
