@@ -13,7 +13,6 @@ const authRoutes = require("./routes/auth");
 
 app.use("/api/auth", authRoutes); // Make sure this path is correct
 
-
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URI, {

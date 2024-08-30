@@ -48,6 +48,23 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<key>UIBackgroundModes</key>
+<array>
+    <string>fetch</string>
+    <string>remote-notification</string>
+</array>
+<key>PushyAPIKey</key>
+<string>YOUR_PUSHY_API_KEY</string>
+<key>PushyAppID</key>
+<string>YOUR_PUSHY_APP_ID</string>
+<key>PushyClientSecret</key>
+<string>YOUR_PUSHY_CLIENT_SECRET</string>
+<key>PushyClientID</key>
+<string>YOUR_PUSHY_CLIENT_ID</string>
+<key>PushyPlatform</key>
+<string>iOS</string>
+<key>PushyNotificationSound</key>
+<string>default</string>
 	<true/>
 </dict>
 </plist>
