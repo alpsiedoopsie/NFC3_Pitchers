@@ -5,6 +5,8 @@ import Home from "./components/Home";
 import News from "./components/News";
 import Contact from "./components/Contact";
 import ProjectsPage from "./components/ProjectsPage";
+import LocationPage from "./components/LocationPage";
+import LoginForm from "./components/LoginForms"; // Import the new LoginForm component
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/news" element={<News />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/ProjectPage" element={<ProjectsPage />} />
+          <Route path="/location" element={<LocationPage />} />
+          <Route path="/get-started" element={<LoginForm />} /> {/* Add the new route */}
         </Routes>
       </div>
     </Router>

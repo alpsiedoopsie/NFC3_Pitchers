@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./ProjectsPage.css";
 
 const AddProjectForm = ({ onAddProject }) => {
   const [name, setName] = useState('');
@@ -56,7 +57,7 @@ const AddProjectForm = ({ onAddProject }) => {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           });
-          setPlace('Current Location'); 
+          setPlace("  Longitude: " + position.coords.longitude + "   Longitude: " + position.coords.longitude); 
         },
         (error) => {
           console.error('Error fetching current location:', error);
@@ -70,7 +71,7 @@ const AddProjectForm = ({ onAddProject }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Project Name:</label>
+        <label>Type of Incident:</label>
         <input
           type="text"
           value={name}
@@ -83,20 +84,20 @@ const AddProjectForm = ({ onAddProject }) => {
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          required
+          
         />
       </div>
       <div>
-        <label>Department:</label>
+        <label>Nearby Landmark:</label>
         <input
           type="text"
           value={department}
           onChange={(e) => setDepartment(e.target.value)}
-          required
+          
         />
       </div>
       <div>
-        <label>Completion Time:</label>
+        <label>Incident Time:</label>
         <input
           type="text"
           value={completionTime}
@@ -104,14 +105,14 @@ const AddProjectForm = ({ onAddProject }) => {
           required
         />
       </div>
-      <div>
+      <div className="location-container">
         <label>Place:</label>
         <input
           type="text"
           value={place}
           onChange={(e) => setPlace(e.target.value)}
         />
-        <button type="button" onClick={handleUseCurrentLocation}>
+        <button type="button" onClick={handleUseCurrentLocation} className="location-button">
           Use Current Location
         </button>
       </div>

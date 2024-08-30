@@ -36,6 +36,10 @@ const ProjectsPage = () => {
     setModalImageUrl("");
   };
 
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   return (
     <div className="projects-page">
       <h1>My Projects</h1>
@@ -51,9 +55,9 @@ const ProjectsPage = () => {
         {projects.map((project, index) => (
           <React.Fragment key={index}>
             <li>
-              <h2>{project.location}</h2>
+              <h2>{capitalize(project.location)}</h2>
               <p>{project.descriptionOfCrime}</p>
-              <p>Type of Crime: {project.typeOfCrime}</p>
+              <p>Type of Crime: {capitalize(project.typeOfCrime)}</p>
               {project.picture && (
                 <img
                   src={project.picture}
