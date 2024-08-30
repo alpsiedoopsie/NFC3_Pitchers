@@ -1,12 +1,22 @@
-import React from "react";
+import { Carousel } from 'react-responsive-carousel';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import React from 'react';
 
-function News() {
-  // const images = [
-  //   "https://cdn.pixabay.com/photo/2014/06/03/19/38/test-361512_640.jpg",
-  //   "https://img.freepik.com/premium-vector/job-exam-test-vector-illustration_138676-243.jpg",
-  //   "https://cdn.pixabay.com/photo/2014/06/03/19/38/road-sign-361514_640.png",
-  // ];
-  // return <Carousel images={images} />;
+export default function News() {
+  return (
+    <Carousel>
+      <div>
+        <img src="/assets/images/1.jpg" alt="Image 1" />
+        <p className="legend">Legend 1</p>
+      </div>
+      <div>
+        <img src="/assets/images/2.jpg" alt="Image 2" />
+        <p className="legend">Legend 2</p>
+      </div>
+      <div>
+        <img src="/assets/images/3.jpg" alt="Image 3" />
+        <p className="legend">Legend 3</p>
+      </div>
+    </Carousel>
+  );
 }
-
-export default News;

@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import News from "./components/News";
 import Contact from "./components/Contact";
-import About from "./components/About";
 import ProjectsPage from "./components/ProjectsPage";
 
 function App() {

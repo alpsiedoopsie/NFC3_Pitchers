@@ -43,7 +43,7 @@ const Navbar = () => {
     <header className="header" style={{ zIndex: 10 }}>
       <nav className="nav container">
         <NavLink to="/" className="nav__logo">
-          Navigation Bar
+          Safe<span className="logo">Spaces</span>
         </NavLink>
 
         <div
@@ -68,20 +68,11 @@ const Navbar = () => {
             </li>
             <li className="nav__item">
               <NavLink
-                to="/about-us"
-                className="nav__link"
-                onClick={closeMenuOnMobile}
-              >
-                About Us
-              </NavLink>
-            </li>
-            <li className="nav__item">
-              <NavLink
                 to="/ProjectPage"
-                className="nav__link"
+                className="nav__link nav__cta"
                 onClick={closeMenuOnMobile}
               >
-                Favorite
+                Incidents Report
               </NavLink>
             </li>
             <li className="nav__item">
