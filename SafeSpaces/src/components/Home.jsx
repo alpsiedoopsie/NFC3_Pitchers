@@ -1,9 +1,12 @@
 import React from "react";
+import Card from "./Card.jsx"
 
 function Home() {
   
   return(
-    <>Home</>
+    <>
+    <Card />
+    </>
   );
 }
 

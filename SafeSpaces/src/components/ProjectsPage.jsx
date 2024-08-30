@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AddProjectForm from "./AddProjectForm";
 import "./ProjectsPage.css";
-import MapWithMarkers from "./MapwithMarker";
+import MapWithMarkers from "./MapWithMarkers";
+import ImageModal from "./ImageModal";
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState(() => {
@@ -12,60 +13,60 @@ const ProjectsPage = () => {
   const [projectName, setProjectName] = useState("");
   const [newLat, setNewLat] = useState(null);
   const [newLon, setNewLon] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalImageUrl, setModalImageUrl] = useState("");
 
   const handleAddProject = (newProject) => {
     const updatedProjects = [...projects, newProject];
     setProjects(updatedProjects);
     localStorage.setItem("projects", JSON.stringify(updatedProjects));
-    setNewPlace(newProject.place);
-    setProjectName(newProject.name);
-    setNewLat(newProject.lat);
-    setNewLon(newProject.lon);
+    setNewPlace(newProject.location);
+    setProjectName(newProject.typeOfCrime); // Adjust if needed
+    setNewLat(newProject.coordinates.coordinates[1]); // Latitude
+    setNewLon(newProject.coordinates.coordinates[0]); // Longitude
   };
 
-  useEffect(() => {
-    // Re-load markers from local storage
-    const savedMarkers = localStorage.getItem("markers");
-    if (savedMarkers) {
-      const markers = JSON.parse(savedMarkers);
-      if (markers.length > 0) {
-        setNewPlace(markers[0].address);
-        setProjectName(markers[0].project);
-        setNewLat(markers[0].lat);
-        setNewLon(markers[0].lon);
-      }
-    }
-  }, []);
+  const openModal = (imageUrl) => {
+    setModalImageUrl(imageUrl);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImageUrl("");
+  };
 
   return (
     <div className="projects-page">
-      <h1>Report Incident</h1>
+      <h1>My Projects</h1>
       <div className="form-and-map-container">
         <div className="form-container">
           <AddProjectForm onAddProject={handleAddProject} />
         </div>
-        <div className="map-container" style={{ zIndex: 0 }}>
-          <MapWithMarkers
-            place={newPlace}
-            project={projectName}
-            lat={newLat}
-            lon={newLon}
-          />
+        <div className="map-container">
+          <MapWithMarkers place={newPlace} project={projectName} lat={newLat} lon={newLon} />
         </div>
       </div>
       <ul>
-        {projects.map((project) => (
-          <React.Fragment key={project.id}>
+        {projects.map((project, index) => (
+          <React.Fragment key={index}>
             <li>
-              <h2>{project.name}</h2>
-              <p>{project.description}</p>
-              <p>Concerned Department: {project.department}</p>
-              <p>Incident Time: {project.completionTime}</p>
-              <p>Place: {project.place}</p>
+              <h2>{project.location}</h2>
+              <p>{project.descriptionOfCrime}</p>
+              <p>Type of Crime: {project.typeOfCrime}</p>
+              {project.picture && (
+                <img
+                  src={project.picture}
+                  alt="Project"
+                  style={{ width: '100px', height: '100px', cursor: 'pointer' }}
+                  onClick={() => openModal(project.picture)}
+                />
+              )}
             </li>
           </React.Fragment>
         ))}
       </ul>
+      <ImageModal isOpen={isModalOpen} onClose={closeModal} imageUrl={modalImageUrl} />
     </div>
   );
 };

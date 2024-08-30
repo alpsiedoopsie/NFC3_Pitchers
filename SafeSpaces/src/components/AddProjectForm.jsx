@@ -1,58 +1,52 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const AddProjectForm = ({ onAddProject }) => {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [department, setDepartment] = useState("");
-  const [completionTime, setCompletionTime] = useState("");
-  const [place, setPlace] = useState("");
-  const [currentLocation, setCurrentLocation] = useState({
-    lat: null,
-    lon: null,
-  });
-  const [capturedImage, setCapturedImage] = useState(null);
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
+  const [department, setDepartment] = useState('');
+  const [completionTime, setCompletionTime] = useState('');
+  const [place, setPlace] = useState('');
+  const [currentLocation, setCurrentLocation] = useState({ lat: null, lon: null });
+  const [picture, setPicture] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newProject = {
-      userId: "someUserId", // Ensure this is dynamically set
+      name,
+      description,
+      department,
+      completionTime,
+      place,
       location: {
         type: "Point",
-        coordinates: [currentLocation.lon, currentLocation.lat],
+        coordinates: [currentLocation.lon, currentLocation.lat], // Longitude, Latitude
       },
-      typeOfCrime: name, // Assuming 'name' is the type of crime
-      description,
       media: capturedImage ? [capturedImage] : [],
-      status: "submitted",
-      assignedTo: null,
     };
 
     try {
-      const response = await fetch("/api/report/summit", {
+      const response = await fetch("/api/reports", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(newProject),
       });
 
-      if (response.ok) {
-        const createdProject = await response.json();
-        onAddProject(createdProject);
-      
-        setName("");
-        setDescription("");
-        setDepartment("");
-        setCompletionTime("");
-        setPlace("");
-        setCurrentLocation({ lat: null, lon: null });
-        setCapturedImage(null);
-      } else {
-        console.error("Failed to create project");
-      }
+      // Clear the form
+      setName('');
+      setDescription('');
+      setDepartment('');
+      setCompletionTime('');
+      setPlace('');
+      setCurrentLocation({ lat: null, lon: null });
+      setPicture(null);
+
+      // Optionally update state to reflect the new project
+      onAddProject(newProject);
     } catch (error) {
-      console.error("Error:", error);
+      console.error('Error submitting project:', error);
     }
   };
 
@@ -64,19 +58,19 @@ const AddProjectForm = ({ onAddProject }) => {
             lat: position.coords.latitude,
             lon: position.coords.longitude,
           });
-          setPlace("Current Location"); // Optional: Set a placeholder for the current location
+          setPlace('Current Location'); 
         },
         (error) => {
-          console.error("Error fetching current location:", error);
+          console.error('Error fetching current location:', error);
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      console.error('Geolocation is not supported by this browser.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-project-form">
+    <form onSubmit={handleSubmit}>
       <div>
         <label>Project Name:</label>
         <input
@@ -95,7 +89,7 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
-        <label>Incident:</label>
+        <label>Department:</label>
         <input
           type="text"
           value={department}
@@ -104,7 +98,7 @@ const AddProjectForm = ({ onAddProject }) => {
         />
       </div>
       <div>
-        <label>Incident Time:</label>
+        <label>Completion Time:</label>
         <input
           type="text"
           value={completionTime}
@@ -123,10 +117,7 @@ const AddProjectForm = ({ onAddProject }) => {
           Use Current Location
         </button>
       </div>
-      <div>
-        <label>Capture Image:</label>
-        <CameraCapture onCapture={setCapturedImage} />
-      </div>
+      
       <button type="submit">Add Project</button>
     </form>
   );
