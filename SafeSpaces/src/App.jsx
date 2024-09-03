@@ -6,7 +6,7 @@ import News from "./components/News";
 import Contact from "./components/Contact";
 import ProjectsPage from "./components/ProjectsPage";
 import LocationPage from "./components/LocationPage";
-import LoginForm from "./components/LoginForms"; // Import the new LoginForm component
+import LoginForm from "./components/LoginForms"; 
 
 function App() {
   return (

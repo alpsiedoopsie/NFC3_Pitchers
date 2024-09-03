@@ -19,7 +19,7 @@ const AddProjectForm = ({ onAddProject }) => {
         type: "Point",
         coordinates: [currentLocation.lon, currentLocation.lat], // Longitude, Latitude
       },
-      typeOfCrime: "Theft", // Example value, adjust as needed
+      typeOfCrime:name, // Example value, adjust as needed
       descriptionOfCrime: description,
       picture: picture ? URL.createObjectURL(picture) : null, // Convert file to URL
     };
