@@ -72,13 +72,17 @@ const Navbar = () => {
                 className="nav__link nav__cta"
                 onClick={closeMenuOnMobile}
               >
+<<<<<<< Updated upstream
                 Incidents Report
+=======
+                Report an Incident
+>>>>>>> Stashed changes
               </NavLink>
             </li>
             <li className="nav__item">
               <NavLink
                 to="/location"
-                className="nav__link"
+                className="nav__link "
                 onClick={closeMenuOnMobile}
               >
                 Location

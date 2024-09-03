@@ -8,7 +8,11 @@ body {
 }
 
 .header {
+<<<<<<< Updated upstream
   background-color: #000000;
+=======
+  background-color: #060606;
+>>>>>>> Stashed changes
   padding: 10px 0;
 }
 
@@ -75,13 +79,21 @@ body {
 }
 
 .nav__cta {
+<<<<<<< Updated upstream
   background-color: #b40000;
+=======
+  background-color: #aa0404;
+>>>>>>> Stashed changes
   color: white;
   border-radius: 4px;
 }
 
 .nav__cta:hover {
+<<<<<<< Updated upstream
   background-color: #ff0000;
+=======
+  background-color: #000000;
+>>>>>>> Stashed changes
 }
 
 .nav__toggle {
