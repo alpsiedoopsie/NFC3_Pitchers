@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:geocoding/geocoding.dart';
+import 'l10n.dart';
 
 class IncidentReportingScreen extends StatefulWidget {
   @override
@@ -63,9 +64,11 @@ class _IncidentReportingScreenState extends State<IncidentReportingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Report Incident'),
+        title: Text(localizations.translate('title')),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -73,7 +76,30 @@ class _IncidentReportingScreenState extends State<IncidentReportingScreen> {
           children: [
             DropdownButtonFormField<String>(
               value: _selectedIncidentType,
-              items: ['Theft', 'Vandalism', 'Assault']
+              items: [
+                'Theft',
+                'Vandalism',
+                'Assault',
+                'Ragging',
+                'Harassment',
+                'Domestic Violence',
+                'Burglary',
+                'Cybercrime',
+                'Fraud',
+                'Drug Abuse',
+                'Arson',
+                'Kidnapping',
+                'Trespassing',
+                'Sexual Assault',
+                'Hate Crime',
+                'Stalking',
+                'Road Rage',
+                'Public Disturbance',
+                'Animal Abuse',
+                'Human Trafficking',
+                'Gang Activity',
+                'Child Abuse'
+              ]
                   .map((type) => DropdownMenuItem(
                         value: type,
                         child: Text(type),
@@ -85,7 +111,7 @@ class _IncidentReportingScreenState extends State<IncidentReportingScreen> {
                 });
               },
               decoration: InputDecoration(
-                labelText: 'Incident Type',
+                labelText: localizations.translate('incidentType'),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -93,7 +119,7 @@ class _IncidentReportingScreenState extends State<IncidentReportingScreen> {
             TextField(
               controller: _locationController,
               decoration: InputDecoration(
-                labelText: 'Location',
+                labelText: localizations.translate('location'),
                 border: OutlineInputBorder(),
               ),
             ),
@@ -101,25 +127,25 @@ class _IncidentReportingScreenState extends State<IncidentReportingScreen> {
             TextField(
               controller: _descriptionController,
               decoration: InputDecoration(
-                labelText: 'Description',
+                labelText: localizations.translate('description'),
                 border: OutlineInputBorder(),
               ),
               maxLines: 5,
             ),
             SizedBox(height: 16),
-            SwitchListTile(
-              title: Text('Report Anonymously'),
-              value: _isAnonymous,
-              onChanged: (value) {
-                setState(() {
-                  _isAnonymous = value;
-                });
-              },
-            ),
+            // SwitchListTile(
+            //   title: Text(localizations.translate('reportAnonymously')),
+            //   value: _isAnonymous,
+            //   onChanged: (value) {
+            //     setState(() {
+            //       _isAnonymous = value;
+            //     });
+            //   },
+            // ),
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: _submitReport,
-              child: Text('Submit Report'),
+              child: Text(localizations.translate('submitReport')),
             ),
           ],
         ),

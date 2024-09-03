@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import './models/incident.dart'; // Assuming you have an Incident model
+import 'l10n.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
                 IconButton(
                   icon: Icon(Icons.person),
                   onPressed: () {
-                    // Handle profile action
+                    Navigator.pushNamed(context, '/auth');
                   },
                 ),
               ],
@@ -89,9 +90,13 @@ class _MainScreenState extends State<MainScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Error: ${snapshot.error}'));
+                    return Center(
+                        child: Text(
+                            '${AppLocalizations.of(context).translate('error')}${snapshot.error}'));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return Center(child: Text('No incidents found'));
+                    return Center(
+                        child: Text(AppLocalizations.of(context)
+                            .translate('no_incidents')));
                   } else {
                     List<CircleMarker> circleMarkers =
                         snapshot.data!.map((incident) {
@@ -130,9 +135,13 @@ class _MainScreenState extends State<MainScreen> {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Error: ${snapshot.error}'));
+                  return Center(
+                      child: Text(
+                          '${AppLocalizations.of(context).translate('error')}${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No incidents found'));
+                  return Center(
+                      child: Text(AppLocalizations.of(context)
+                          .translate('no_incidents')));
                 } else {
                   return ListView(
                     children: snapshot.data!.map((incident) {
@@ -159,7 +168,7 @@ class _MainScreenState extends State<MainScreen> {
           }
         },
         child: Icon(Icons.add),
-        tooltip: 'Report Incident',
+        tooltip: AppLocalizations.of(context).translate('report_incident'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       bottomNavigationBar: BottomAppBar(
@@ -169,7 +178,8 @@ class _MainScreenState extends State<MainScreen> {
             onPressed: () {
               Navigator.pushNamed(context, '/contacts');
             },
-            child: Text('Emergency Contacts'),
+            child: Text(
+                AppLocalizations.of(context).translate('emergency_contacts')),
           ),
         ),
       ),
